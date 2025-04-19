@@ -1,0 +1,255 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Fonte e fundo com foto de "casa nova" */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: url('https://source.unsplash.com/1600x900/?new-home') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Canvas de neve (opcional) */
+  #snowCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  /* Cabeçalho fixo */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+  
+  header nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  header nav a {
+    text-decoration: none;
+    color: #758E67;
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: color 0.3s;
+  }
+  
+  header nav a:hover {
+    color: #C1D3C5;
+  }
+  
+  /* Ícone do menu (mobile) */
+  .menu-icon {
+    display: none; /* aparecerá só em telas pequenas */
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #758E67;
+  }
+  
+  /* Menu mobile */
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 100;
+  }
+  
+  .mobile-nav a {
+    text-decoration: none;
+    color: #758E67;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .mobile-nav a:hover {
+    color: #C1D3C5;
+  }
+  
+  .mobile-nav.active {
+    display: flex;
+  }
+  
+  /* Seção principal (Hero) */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 35vh;
+    padding: 70px 20px 20px; /* compensando header fixo */
+    text-align: center;
+  }
+  
+  .hero-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 40px;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .text-section {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .text-section h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.6rem;
+    color: #758E67;
+    margin-bottom: 15px;
+  }
+  
+  .text-section p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Lista de Presentes */
+  #lista .container h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #758E67;
+  }
+  
+  
+  /* Card de produto */
+  .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card .card-img-top {
+    width: 100%; /* Garante que a imagem ocupe a largura total do contêiner */
+    height: 180px; /* Define a altura do espaço disponível */
+    object-fit: contain; /* Faz a imagem se ajustar ao espaço sem ser cortada */
+    object-position: center; /* Centraliza a imagem dentro do espaço */
+    background-color: #ffffff; /* Define um fundo para espaços vazios ao redor da imagem */
+  }
+  
+  
+  .card .card-body {
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  /* Botões personalizados */
+  .btn-select {
+    background-color: #2e7d32; /* Verde mais escuro */
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .btn-select:hover {
+    background-color: #1b5e20; /* Verde ainda mais escuro no hover */
+    transform: scale(1.03);
+  }
+  
+  .btn-info-custom {
+    background-color: #696f75;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .btn-info-custom:hover {
+    background-color: #3d4349; /* Azul mais escuro no hover */
+    transform: scale(1.03);
+  }
+  
+  /* Toast de sucesso (centralizado) */
+  .toast-container {
+    z-index: 9999; /* Garantir que fique acima de outros elementos */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    /* Esconde o menu desktop e mostra o ícone */
+    header nav {
+      display: none;
+    }
+    .menu-icon {
+      display: block;
+    }
+    
+    .hero-content {
+      padding: 20px;
+    }
+    .text-section h1 {
+      font-size: 2rem;
+    }
+    .text-section p {
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .text-section h1 {
+      font-size: 1.8rem;
+    }
+    .text-section p {
+      font-size: 0.95em;
+    }
+  }
+  

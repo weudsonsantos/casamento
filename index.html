@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casamento Weudson &amp; Ester</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<script>
+  document.getElementById("confirm-presence-btn").addEventListener("click", function () {
+    document.getElementById("presence-form").style.display = "block";
+    this.style.display = "none"; // Esconde o botão de confirmar presença
+  });
+
+  document.getElementById("presence-form").addEventListener("submit", function (e) {
+    e.preventDefault(); // Evita o envio do formulário
+    window.location.href = "presentes.html"; // Redireciona para a próxima etapa
+  });
+</script>
+
+<body>
+  <canvas id="snowCanvas"></canvas>
+
+  <header>
+    <div class="menu-icon" onclick="toggleMobileNav()">&#9776;</div>
+    <nav>
+      <a href="#home">Home</a>
+      
+      <a href="#presentes">Lista de Presentes</a>
+    </nav>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">Home</a>
+    
+      <a href="#presentes">Lista de Presentes</a>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="text-section">
+        <h1>Weudson &amp; Ester</h1>
+        <p>Contagem regressiva para o grande dia: </p>
+        <div class="countdown">
+          <div class="time-box">
+            <span id="days">98</span>
+            <p>Dias</p>
+          </div>
+          <div class="time-box">
+            <span id="hours">2</span>
+            <p>Horas</p>
+          </div>
+          <div class="time-box">
+            <span id="minutes">55</span>
+            <p>Minutos</p>
+          </div>
+          <div class="time-box">
+            <span id="seconds">32</span>
+            <p>Segundos</p>
+          </div>
+        </div>
+        <div class="details">
+          <h2>Detalhes do Evento</h2>
+          <p><strong>Data:</strong> 14 de Maio de 2025</p>
+          <p><strong>Horário:</strong> 19h00</p>
+          <p><strong>Local:</strong> Mirante Du Park |Q. 306 Sul Alameda 3,S/N -Lote 15, Palmas - TO</p>
+          
+        </div>
+        <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.6416369380324!2d-48.32218772509844!3d-10.199945789961867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x933b34aab9458bf9%3A0xcfd4a1ba2080719a!2sMirante%20Du%20Park!5e0!3m2!1spt-BR!2sbr!4v1713532481921!5m2!1spt-BR!2sbr" 
+        width="100%" 
+        height="300" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." allowfullscreen></iframe>
+<p style="text-align: center; margin-top: 10px;">
+  <a href="https://www.google.com/maps/dir//Mirante+Du+Park+-+Q.+306+Sul+Alameda+3,+s%2Fn+-+Lote+15+-+Plano+Diretor+Sul,+Palmas+-+TO,+77021-034/@-10.1999407,-48.4023965,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x933b34aab9458bf9:0xcfd4a1ba2080719a!2m2!1d-48.319995!2d-10.1999516?entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoASAFQAw%3D%3D" 
+     target="_blank" 
+     style="color: #b76e79; text-decoration: none; font-weight: bold;">
+     Ver no Google Maps
+  </a>
+</p>
+
+
+        <button id="confirm-presence-btn" class="btn-confirm">Confirmar Presença</button>
+
+        <form id="presence-form" style="display: none; margin: 30px auto; max-width: 600px; background: #fff; padding: 100px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+
+          <h2>Confirme sua Presença</h2>
+          <input type="text" name="nome" placeholder="Insira seu nome completo" required />
+
+          <label>Você irá ao evento?</label>
+          <input type="radio" name="vai" value="sim" required /> Sim
+          <input type="radio" name="vai" value="nao" /> Não
+
+          <label>Quantidade de adultos incluindo você:</label>
+          <input type="number" name="adultos" value="1" min="1" />
+
+          <label>Quantidade de crianças:</label>
+          <input type="number" name="criancas" value="0" min="0" />
+
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="exemplo@email.com" required />
+          <small>Você receberá a confirmação de presença neste e-mail.</small>
+
+          <label>Telefone para contato</label>
+          <input type="tel" name="telefone" placeholder="(00) 00000-0000" required />
+
+          <button type="submit" class="btn-confirm" style="margin-top: 01px;">Próxima etapa</button>
+        </form>
+
+        <div id="presence-message" style="display: none; margin-top: 20px; font-size: 1.2em; color: #758E67;">
+          Presença Confirmada!
+        </div>
+      </div>
+
+      
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    window.addEventListener("hashchange", () => {
+      const hash = window.location.hash;
+      if (hash === "#home") {
+        window.location.href = "home.html";
+      } else if (hash === "#presentes") {
+        window.location.href = "presentes.html";
+      }
+    });
+
+    window.addEventListener("load", () => {
+      const hash = window.location.hash;
+      if (hash === "#home") {
+        window.location.href = "home.html";
+      } else if (hash === "#presentes") {
+        window.location.href = "presentes.html";
+      }
+    });
+
+    document.getElementById("confirm-presence-btn").addEventListener("click", () => {
+      document.getElementById("presence-form").style.display = "block";
+    });
+
+    document.getElementById("presence-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      window.location.href = "presentes.html";
+    });
+  </script>
+</body>
+</html>

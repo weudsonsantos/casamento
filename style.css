@@ -1,0 +1,476 @@
+/* Scroll suave para navegação */
+html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo do canvas de neve */
+  #snowCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  /* Fundo floral com overlay com linhas */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: url('https://source.unsplash.com/1600x900/?wedding,flowers') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8) 1px,
+      transparent 1px,
+      transparent 20px
+    );
+    z-index: -2;
+  }
+  
+  /* Cabeçalho fixo com efeito blur e centralizado */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+  header nav {
+    display: flex;
+    gap: 20px;
+  }
+  header nav a {
+    text-decoration: none;
+    color: #758E67;
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  header nav a:hover {
+    color: #C1D3C5;
+  }
+  
+  /* Ícone do menu de hambúrguer */
+  .menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #758E67;
+  }
+  
+  /* Menu de navegação móvel */
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 100;
+  }
+  .mobile-nav a {
+    text-decoration: none;
+    color: #758E67;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 10px;
+    text-align: center;
+  }
+  .mobile-nav a:hover {
+    color: #C1D3C5;
+  }
+  
+  /* Seção Hero */
+  .hero {
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 190px 20px 20px;
+    text-align: center;
+  }
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    overflow: hidden;
+    animation: fadeIn 1.5s ease-in-out;
+    margin: 0 auto;
+  }
+  
+  /* Seção de Texto com Countdown */
+  .text-section {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .text-section h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4em;
+    color: #758E67;
+    margin-bottom: 20px;
+  }
+  .text-section p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .time-box {
+    background: #fefefe;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px 15px;
+    min-width: 90px;
+    transition: transform 0.3s;
+    margin: 5px;
+  }
+  .time-box:hover {
+    transform: scale(1.1);
+  }
+  .time-box span {
+    display: block;
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #758E67;
+  }
+  .time-box p {
+    font-size: 0.9em;
+    color: #888;
+  }
+  
+  /* Seção de Imagem com efeito overlay */
+  .image-section {
+    flex: 1;
+    position: relative;
+    background: url('https://source.unsplash.com/800x1000/?couple,wedding') no-repeat center center;
+    background-size: cover;
+  }
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .image-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #fff;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: slideUp 1.5s ease-out;
+  }
+  .image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Animações chave */
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+  }
+  @keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+  }
+  
+  /* Seção com efeito Parallax */
+  .story-section {
+    background: url('https://source.unsplash.com/1600x900/?wedding,romance') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 100px 20px;
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+  .story-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+  }
+  .story-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .story-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  .story-paragraph {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+  .signature {
+    font-size: 1.5em;
+    margin-top: 30px;
+    color: #ffffff;
+  }
+  .signature strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.8em;
+    color: #f3f3f3;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+    .image-section {
+        height: 400px;
+    }
+    .text-section {
+        padding: 40px;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .image-section {
+        height: auto;
+        min-height: 500px;
+        background-size: contain;
+        background-position: center;
+    }
+    .text-section {
+        padding: 30px;
+    }
+    header {
+        padding: 10px 20px;
+    }
+    header nav a {
+        margin: 0 8px;
+        font-size: 0.9em;
+    }
+    .image-content {
+        width: 150px;
+        height: 150px;
+    }
+    .menu-icon {
+        display: block;
+        position: relative;
+        left: 0;
+    }
+    header nav {
+        display: none;
+    }
+    .mobile-nav.active {
+        display: flex;
+    }
+  }
+  @media (max-width: 480px) {
+    .text-section h1 {
+        font-size: 3em;
+    }
+    .text-section p {
+        font-size: 1em;
+    }
+    .time-box {
+        padding: 10px 8px;
+        min-width: 70px;
+    }
+    .time-box span {
+        font-size: 1.8em;
+    }
+    .time-box p {
+        font-size: 0.8em;
+    }
+    header nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    header nav a {
+        margin: 5px 0;
+    }
+    .image-section {
+        height: 200px;
+    }
+    .image-content {
+        width: 200px;
+        height: 200px;
+    }
+  }
+  
+  /* Botão de confirmar presença */
+  .btn-confirm {
+    background-color: #758E67;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  .btn-confirm:hover {
+    background-color: #C1D3C5;
+  }
+  
+  /* Formulário de presença - inicialmente oculto */
+  /* Mantém todo o CSS anterior exatamente como está */
+  /* APENAS substitua a parte do #presence-form e seus elementos por este bloco revisado */
+  
+  /* Formulário de presença - inicialmente oculto */
+  #presence-form {
+    display: none;
+  }
+  
+  /* Exibição do formulário como pop-up quando a classe .modal-active for aplicada */
+  #presence-form.modal-active {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    position: static;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    max-width: 500px;    /* Largura máxima do pop-up */
+    width: 90%;          /* Ocupa 90% da largura em telas pequenas */
+    background: #fff;
+    padding: 10px 40px;  /* Mais espaçamento interno */
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  
+  /* Título (opcional) para o pop-up, se quiser colocar um h2/h3 */
+  #presence-form h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #758E67;
+  }
+  
+  /* Ajustes no input */
+  #presence-form input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Espaço abaixo do campo */
+    text-align: center;
+  }
+  
+  /* Botões em linha, com espaçamento entre eles */
+  #presence-form .buttons-container {
+    display: flex;
+    gap: 10px;        /* Espaço horizontal entre botões */
+    justify-content: center; /* Centraliza os botões */
+    width: 100%;
+  }
+  
+  /* Botão Confirmar */
+  #presence-submit {
+    background-color: #758E67;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #presence-submit:hover {
+    background-color: #C1D3C5;
+  }
+  
+  /* Botão Fechar */
+  .btn-cancel {
+    background-color: #aaa;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .btn-cancel:hover {
+    background-color: #888;
+  }
+  

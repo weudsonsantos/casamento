@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Presentes</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  
+  <!-- Animate.css (animações) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <!-- Ícones do Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <!-- Fontes Google -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Seu CSS -->
+  <link rel="stylesheet" href="style_presentes.css" />
+</head>
+<body>
+  <!-- Canvas para efeito de neve (opcional) -->
+  <canvas id="snowCanvas"></canvas>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="menu-icon" onclick="toggleMobileNav()">&#9776;</div>
+    <nav>
+      <a href="#home">Home</a>
+      
+      <a href="#presentes">Lista de Presentes</a>
+    </nav>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">Home</a>
+      
+      <a href="#presentes">Lista de Presentes</a>
+    </div>
+  </header>
+
+  <!-- Seção principal (Hero) -->
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <div class="text-section">
+        <h1>Lista de Presentes</h1>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção da Lista de Presentes -->
+  <section id="lista" class="py-4">
+    <div class="container py-4">
+      <h3 class="mb-4 text-center" style="color: #758E67;">Lista de Presentes</h3>
+      <br>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4" id="products-container">
+        <!-- Produtos carregados via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal para descrição (agora com imagem maior) -->
+  <div class="modal fade" id="infoModal" tabindex="-1">
+    <!-- A classe "modal-lg" deixará o modal mais largo -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        
+        <!-- Cabeçalho do modal -->
+        <div class="modal-header">
+          <h5 class="modal-title">Descrição do Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        
+        <!-- Corpo do modal com imagem e texto centralizados -->
+        <div class="modal-body">
+          <p class="text-start mb-1"><strong>Produto:</strong> <span id="infoModalProductName"></span></p>
+          <p class="text-start mb-1"><strong>Descrição:</strong> <span id="infoModalProductDetails"></span></p>
+          <img
+            id="infoModalProductImage"
+            src=""
+            alt="Imagem do Produto"
+            class="img-fluid rounded mx-auto d-block"
+            style="max-height: 400px; object-fit: cover;"
+          >
+        </div>
+        
+        
+        <!-- Rodapé do modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fechar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para presentear (pede nome) -->
+  <div class="modal fade" id="productModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Presentear Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-start mb-1"><strong>Produto:</strong> <span id="modalProductName"></span></p>
+
+          <input type="hidden" id="modalProductId">
+          <div class="mb-3">
+            <label for="userName" class="form-label"><strong>Seu Nome:</strong></label>
+            <input
+              type="text"
+              id="userName"
+              class="form-control"
+              placeholder="Digite seu nome"
+              required
+            />
+            <div id="userNameError" class="text-danger mt-1"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="confirmGiftButton" class="btn btn-select">
+            <span
+              id="spinner"
+              class="spinner-border spinner-border-sm d-none"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Presentear
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Ação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body confirmation-details">
+          <p>Você deseja confirmar esta ação de presentear?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="confirmAction" class="btn btn-select">
+            Sim
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Sucesso -->
+  <div class="toast-container position-fixed top-50 start-50 translate-middle">
+    <div
+      id="successToast"
+      class="toast align-items-center text-bg-success border-0 p-3 d-none success-message"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="d-flex">
+        <div class="toast-body text-center fs-5">
+          Presente registrado com sucesso!
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <!-- Seu JavaScript (lista de presentes, modais, etc.) -->
+  <script src="script_presentes.js"></script>
+
+  <script>
+    // Função para abrir/fechar o menu mobile
+    function toggleMobileNav() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('active');
+    }
+  </script>
+  <script>
+    // Detecta mudanças na URL (hash) e redireciona somente se necessário
+    window.addEventListener("hashchange", () => {
+        const hash = window.location.hash;
+
+        if (hash === "#home") {
+            window.location.href = "home.html";
+        } else if (hash === "#presentes") {
+            window.location.href = "presentes.html";
+        }
+        // Para #historia, não faça nada, pois ele está na mesma página
+    });
+
+    // Verifica o hash ao carregar a página
+    window.addEventListener("load", () => {
+        const hash = window.location.hash;
+
+        if (hash === "#home") {
+            window.location.href = "home.html";
+        } else if (hash === "#presentes") {
+            window.location.href = "presentes.html";
+        }
+    });
+
+    // Função para abrir/fechar o menu mobile
+    function toggleMobileNav() {
+        const mobileNav = document.getElementById("mobileNav");
+        mobileNav.style.display = mobileNav.style.display === "block" ? "none" : "block";
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const path = window.location.pathname;
+      const sectionId = path.substring(1); // Remove a barra inicial da rota
+      if (sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
